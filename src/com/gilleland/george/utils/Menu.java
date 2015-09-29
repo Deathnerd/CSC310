@@ -13,11 +13,12 @@ public class Menu {
 
     /**
      * Display a displayWithCallbacks for program navigation with a 0 exit option
+     *
      * @param choices The choices to display
      */
-    public static int display(ArrayList<String> choices){
+    public static int display(ArrayList<String> choices) {
         int i = 1;
-        for(String choice: choices){
+        for (String choice : choices) {
             System.out.printf("%d. %s\n", i++, choice);
         }
         System.out.println("0. Exit");
@@ -27,14 +28,16 @@ public class Menu {
 
     /**
      * Displays a displayWithCallbacks and attempts to run the callback associated with the choice
-     * @param choices The choices to display
+     *
+     * @param choices   The choices to display
      * @param callbacks The callbacks for each choice for the user to run
      * @return The choice that the user entered
      */
-    public static int displayWithCallbacks(ArrayList<String> choices, ArrayList<HomeworkAssignment> callbacks){
+    public static int displayWithCallbacks(ArrayList<String> choices, ArrayList<HomeworkAssignment> callbacks) {
         int choice = Menu.display(choices);
-        if(choice > 0) {
-            HomeworkAssignment callback = callbacks.get(choice-1);
+        // If the choice was not to exit, execute the callback
+        if (choice > 0) {
+            HomeworkAssignment callback = callbacks.get(choice - 1);
             callback.run();
         }
         return choice;
