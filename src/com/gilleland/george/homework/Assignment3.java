@@ -42,7 +42,7 @@ public class Assignment3 extends HomeworkAssignment {
                 try {
                     // because I'm lazy and don't feel like cluttering my code. We'll
                     // dynamically call the method
-                    Object ret = this.getClass().getMethod(menu_choices.get(choice).toLowerCase()).invoke(this);
+                    this.getClass().getMethod(menu_choices.get(choice).toLowerCase()).invoke(this);
                 } catch (NoSuchMethodException e) {
                     System.out.println("I'm afraid I can't do that, Dave... Check the logs");
                     String msg = "Attempted to call an undefined method of " + choice;
