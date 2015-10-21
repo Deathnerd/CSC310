@@ -131,7 +131,7 @@ public class Assignment3 extends HomeworkAssignment {
         this.dataset.clear();
         this.sortAndSearch.is_sorted = false;
         boolean unique;
-        int bound = rand.nextInt(15);
+        int bound = rand.nextInt(16);
         if (bound <= 6) {
             bound = 10;
         }
