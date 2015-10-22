@@ -17,38 +17,6 @@ public class Menu {
     }
 
     /**
-     * Display a Menu for program navigation with a 0 exit option
-     *
-     * @param choices The choices to display
-     * @return The user's numeric choice
-     */
-    public static int display(ArrayList<String> choices) {
-        int i = 1;
-        for (String choice : choices) {
-            System.out.printf(Menu.choice_format, i++, choice);
-        }
-        Menu.showExitChoice();
-        System.out.println(Menu.default_prompt);
-        return Menu.in.nextInt();
-    }
-
-    /**
-     * Display a menu for program navigation with a 0 exit option
-     *
-     * @param choices Any number of strings to display as choices
-     * @return The user's numeric choice
-     */
-    public static int display(String... choices) {
-        int i = 1;
-        for (String choice : choices) {
-            System.out.printf(Menu.choice_format, i++, choice);
-        }
-        Menu.showExitChoice();
-        System.out.println(Menu.default_prompt);
-        return Menu.in.nextInt();
-    }
-
-    /**
      * Display a menu for program navigation with a 0 exit option
      *
      * @param choices Any number of Choice objects representing, in order, the menu to be displayed
@@ -71,11 +39,49 @@ public class Menu {
     }
 
     /**
+     * Display a Menu for program navigation with a 0 exit option
+     *
+     * @param choices The choices to display
+     * @return The user's numeric choice
+     * @deprecated Use {@link #display(Choice...)}
+     */
+    @Deprecated
+    public static int display(ArrayList<String> choices) {
+        int i = 1;
+        for (String choice : choices) {
+            System.out.printf(Menu.choice_format, i++, choice);
+        }
+        Menu.showExitChoice();
+        System.out.println(Menu.default_prompt);
+        return Menu.in.nextInt();
+    }
+
+    /**
+     * Display a menu for program navigation with a 0 exit option
+     *
+     * @param choices Any number of strings to display as choices
+     * @return The user's numeric choice
+     * @deprecated Use {@link #display(Choice...)}
+     */
+    @Deprecated
+    public static int display(String... choices) {
+        int i = 1;
+        for (String choice : choices) {
+            System.out.printf(Menu.choice_format, i++, choice);
+        }
+        Menu.showExitChoice();
+        System.out.println(Menu.default_prompt);
+        return Menu.in.nextInt();
+    }
+
+    /**
      * Returns the canonical string value of the menu item chosen
      *
      * @param choices The list of choices to display
      * @return A null string if the exit was chosen, otherwise the canonical string value of the menu item
+     * @deprecated Use {@link #display(Choice...)}
      */
+    @Deprecated
     public static String displayS(ArrayList<String> choices) {
         int i = 1;
         for (String choice : choices) {
@@ -95,7 +101,9 @@ public class Menu {
      *
      * @param choices Any number of strings to display as choices
      * @return A null string if the exit was chosen, otherwise the canonical string value of the menu item
+     * @deprecated Use {@link #display(Choice...)}
      */
+    @Deprecated
     public static String displayS(String... choices) {
         int i = 1;
         for (String choice : choices) {
@@ -117,7 +125,9 @@ public class Menu {
      * @param callbacks LinkedHashMap of keys and their associated callbacks to perform
      * @return Returns the displayed number beside the choice in the menu
      * @throws CallbackFailedException If the callback failed for any reason
+     * @deprecated Just don't use it
      */
+    @Deprecated
     public static int display(LinkedHashMap<String, HomeworkAssignment> callbacks) throws CallbackFailedException {
         ArrayList<String> arrayListOfKeys = Utils.getArrayListOfKeys(callbacks);
         String choice = displayS(arrayListOfKeys);
