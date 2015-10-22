@@ -1,6 +1,7 @@
 package com.gilleland.george;
 
 import com.gilleland.george.homework.Assignment3;
+import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
 
@@ -13,12 +14,12 @@ public class Main {
         /**
          * The choices to display for the main menu
          */
-        ArrayList<String> main_menu = new ArrayList<String>(){{
-            add("Assignment 3: Sorting and Searching");
-        }};
-        // get the choice the user chose
-        int choice = Menu.display(main_menu);
-        switch (choice){
+        Choice choice = Menu.display(
+                new Choice("Assignment 3: Sorting and Searching"),
+                new Choice("Assignment 4: Polynomial (Linked List)")
+        );
+
+        switch (choice.getIndex()){
             case 1:
                 System.out.println("Good choice! Running Assignment 3!\n\n");
                 HomeworkAssignment assignment3 = new Assignment3();

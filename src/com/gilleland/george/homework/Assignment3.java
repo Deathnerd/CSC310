@@ -1,9 +1,6 @@
 package com.gilleland.george.homework;
 
-import com.gilleland.george.utils.HomeworkAssignment;
-import com.gilleland.george.utils.Menu;
-import com.gilleland.george.utils.NotSortedException;
-import com.gilleland.george.utils.Utils;
+import com.gilleland.george.utils.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,33 +26,32 @@ public class Assignment3 extends HomeworkAssignment {
     public void run() {
         System.out.println(Assignment3.class.getClassLoader().getResource("logging.properties"));
         while (true) {
-            ArrayList<String> menu_choices = new ArrayList<String>() {{
-                add("Read");
-                add("Generate");
-                add("Print");
-                add("Sort");
-                add("Search");
-            }};
-            // Get the numeric choice, -1 if exit
-            int choice = menu_choices.indexOf(Menu.displayS(menu_choices));
-            if (choice >= 0) {
+            Choice choice = Menu.display(
+                    new Choice("Read"),
+                    new Choice("Generate"),
+                    new Choice("Print"),
+                    new Choice("Sort"),
+                    new Choice("Search")
+            );
+            if (choice.getIndex() > 0) {
+                String c = choice.getName().toLowerCase();
                 try {
                     // because I'm lazy and don't feel like cluttering my code. We'll
                     // dynamically call the method
-                    this.getClass().getMethod(menu_choices.get(choice).toLowerCase()).invoke(this);
+                    this.getClass().getMethod(c).invoke(this);
                 } catch (NoSuchMethodException e) {
                     System.out.println("I'm afraid I can't do that, Dave... Check the logs");
-                    String msg = "Attempted to call an undefined method of " + choice;
+                    String msg = "Attempted to call an undefined method of " + c;
                     String error = e.toString();
                     log.log(Level.FINE, msg, error);
                 } catch (InvocationTargetException e) {
                     System.out.println("There was an error processing your command. Please check the logs");
                     String error = e.getTargetException().toString();
-                    String msg = "Invocation target exception. Invoked metohd " + choice + " threw an error of: " + error;
+                    String msg = "Invocation target exception. Invoked metohd " + c + " threw an error of: " + error;
                     log.log(Level.FINE, msg, error);
                 } catch (IllegalAccessException e) {
                     System.out.println("I'm afraid I can't do that, Dave... Check the logs");
-                    String msg = "Illegal access exception. Failed to access method " + choice;
+                    String msg = "Illegal access exception. Failed to access method " + c;
                     String error = e.toString();
                     log.log(Level.FINE, msg, error);
                 }
@@ -96,25 +92,26 @@ public class Assignment3 extends HomeworkAssignment {
 
     /**
      * Present the user with the option to sort a data set using three sorting methods
-     * TODO: Fix Merge sort
      */
     public void sort() {
-        ArrayList<String> choices = new ArrayList<String>() {{
-            add("Merge");
-            add("Quick");
-            add("Shell");
-        }};
+        Choice choice = Menu.display(
+                new Choice("Merge"),
+                new Choice("Quick"),
+                new Choice("Shell")
+        );
 
-        String choice = Menu.displayS(choices);
-
-        if (choice.equalsIgnoreCase("merge")) {
-            // do stuff for merge sortAndSearch
-            this.sortAndSearch.mergeSort(this.dataset);
-        } else if (choice.equalsIgnoreCase("quick")) {
-            // do stuff for quick sortAndSearch
-            this.sortAndSearch.quickSort(this.dataset);
-        } else if (choice.equalsIgnoreCase("shell")) {
-            this.sortAndSearch.shellSort(this.dataset);
+        switch (choice.getName()) {
+            case "Merge":
+                // do stuff for merge sortAndSearch
+                this.sortAndSearch.mergeSort(this.dataset);
+                break;
+            case "Quick":
+                // do stuff for quick sortAndSearch
+                this.sortAndSearch.quickSort(this.dataset);
+                break;
+            case "Shell":
+                this.sortAndSearch.shellSort(this.dataset);
+                break;
         }
         // Sync the data sets
         // TODO: Get rid of this data set maybe?
@@ -156,24 +153,25 @@ public class Assignment3 extends HomeworkAssignment {
      * Present the user with the options to search for a key in the data set
      */
     public void search() {
-        ArrayList<String> choices = new ArrayList<String>() {{
-            add("Binary");
-            add("Interpolation");
-        }};
+        Choice choice = Menu.display(
+                new Choice("Binary"),
+                new Choice("Interpolation")
+        );
+        int position;
 
-        String choice = Menu.displayS(choices);
-
-        int position = -1;
         try {
-            if (choice.equalsIgnoreCase("binary")) {
-                System.out.println("Enter a key to search for: ");
-                position = this.sortAndSearch.binarySearch(this.in.nextLine().charAt(0));
-            } else if (choice.equalsIgnoreCase("interpolation")) {
-                System.out.println("Enter a key to search for: ");
-                position = this.sortAndSearch.interpolationSearch(this.in.nextLine().charAt(0));
-            } else {
-                System.out.println("Invalid choice! Try again!");
-                return;
+            switch (choice.getName()) {
+                case "Binary":
+                    System.out.println("Enter a key to search for: ");
+                    position = this.sortAndSearch.binarySearch(this.in.nextLine().charAt(0));
+                    break;
+                case "Interpolation":
+                    System.out.println("Enter a key to search for: ");
+                    position = this.sortAndSearch.interpolationSearch(this.in.nextLine().charAt(0));
+                    break;
+                default:
+                    System.out.println("Invalid choice! Try again!");
+                    return;
             }
 
             if (position >= 0) {

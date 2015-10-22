@@ -10,6 +10,11 @@ public class Menu {
 
     private static Scanner in = new Scanner(System.in);
     private static String default_prompt = "Enter your choice: ";
+    private static String choice_format = "%d. %s\n";
+
+    private static void showExitChoice() {
+        System.out.println("0. Exit");
+    }
 
     /**
      * Display a Menu for program navigation with a 0 exit option
@@ -20,9 +25,9 @@ public class Menu {
     public static int display(ArrayList<String> choices) {
         int i = 1;
         for (String choice : choices) {
-            System.out.printf("%d. %s\n", i++, choice);
+            System.out.printf(Menu.choice_format, i++, choice);
         }
-        System.out.println("0. Exit");
+        Menu.showExitChoice();
         System.out.println(Menu.default_prompt);
         return Menu.in.nextInt();
     }
@@ -36,11 +41,33 @@ public class Menu {
     public static int display(String... choices) {
         int i = 1;
         for (String choice : choices) {
-            System.out.printf("%d. %s\n", i++, choice);
+            System.out.printf(Menu.choice_format, i++, choice);
         }
-        System.out.println("0. Exit");
+        Menu.showExitChoice();
         System.out.println(Menu.default_prompt);
         return Menu.in.nextInt();
+    }
+
+    /**
+     * Display a menu for program navigation with a 0 exit option
+     *
+     * @param choices Any number of Choice objects representing, in order, the menu to be displayed
+     * @return A Choice object representing the user's choice
+     */
+    public static Choice display(Choice... choices) {
+        int i = 1;
+        for (Choice choice : choices) {
+            System.out.printf(Menu.choice_format, i++, choice.getName());
+        }
+        Menu.showExitChoice();
+        int t = Menu.in.nextInt();
+        if (t <= 0) {
+            Choice c = new Choice("Exit");
+            c.setIndex(-1);
+            return c;
+        }
+        choices[t - 1].setIndex(t);
+        return choices[t - 1];
     }
 
     /**
@@ -52,9 +79,9 @@ public class Menu {
     public static String displayS(ArrayList<String> choices) {
         int i = 1;
         for (String choice : choices) {
-            System.out.printf("%d. %s\n", i++, choice);
+            System.out.printf(Menu.choice_format, i++, choice);
         }
-        System.out.println("0. Exit");
+        Menu.showExitChoice();
         System.out.println(Menu.default_prompt);
         int choice = Menu.in.nextInt() - 1;
         if (choice != -1) {
@@ -72,9 +99,9 @@ public class Menu {
     public static String displayS(String... choices) {
         int i = 1;
         for (String choice : choices) {
-            System.out.printf("%d. %s\n", i++, choice);
+            System.out.printf(Menu.choice_format, i++, choice);
         }
-        System.out.println("0. Exit");
+        Menu.showExitChoice();
         System.out.println(Menu.default_prompt);
         int choice = Menu.in.nextInt() - 1;
         if (choice != -1) {
@@ -82,6 +109,7 @@ public class Menu {
         }
         return "";
     }
+
 
     /**
      * Displays a menu to perform associated callbacks.
