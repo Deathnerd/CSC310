@@ -12,6 +12,12 @@ import java.util.Scanner;
  */
 public class Utils {
 
+    /**
+     * Does what it says on the tin: Given a LinkedHashMap, return its keys inside of an
+     * ArrayList
+     * @param hashmap The hashmap
+     * @return The ArrayList containing the LinkedHashMap's keys
+     */
     public static ArrayList<String> getArrayListOfKeys(LinkedHashMap hashmap) {
         ArrayList<String> ret = new ArrayList<>();
         for (Object key : hashmap.keySet()) {
