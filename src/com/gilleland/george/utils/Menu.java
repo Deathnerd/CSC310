@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Menu {
 
-    private static Scanner in = new Scanner(System.in);
+    public static Scanner in = new Scanner(System.in);
     private static String default_prompt = "Enter your choice: ";
     private static String choice_format = "%d. %s\n";
 

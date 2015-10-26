@@ -4,24 +4,23 @@ import com.gilleland.george.utils.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Wes Gilleland on 9/28/2015.
  */
 public class Assignment3 extends HomeworkAssignment {
-    private static final Logger log = Logger.getLogger(Assignment3.class.getName());
     public SortAndSearch sortAndSearch = new SortAndSearch();
     public Random rand = new Random();
     public ArrayList<String> dataset = new ArrayList<>();
 
     private Scanner in = new Scanner(System.in);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         System.out.println(Assignment3.class.getClassLoader().getResource("logging.properties"));
@@ -34,27 +33,7 @@ public class Assignment3 extends HomeworkAssignment {
                     new Choice("Search")
             );
             if (choice.getIndex() > 0) {
-                String c = choice.getName().toLowerCase();
-                try {
-                    // because I'm lazy and don't feel like cluttering my code. We'll
-                    // dynamically call the method
-                    this.getClass().getMethod(c).invoke(this);
-                } catch (NoSuchMethodException e) {
-                    System.out.println("I'm afraid I can't do that, Dave... Check the logs");
-                    String msg = "Attempted to call an undefined method of " + c;
-                    String error = e.toString();
-                    log.log(Level.FINE, msg, error);
-                } catch (InvocationTargetException e) {
-                    System.out.println("There was an error processing your command. Please check the logs");
-                    String error = e.getTargetException().toString();
-                    String msg = "Invocation target exception. Invoked metohd " + c + " threw an error of: " + error;
-                    log.log(Level.FINE, msg, error);
-                } catch (IllegalAccessException e) {
-                    System.out.println("I'm afraid I can't do that, Dave... Check the logs");
-                    String msg = "Illegal access exception. Failed to access method " + c;
-                    String error = e.toString();
-                    log.log(Level.FINE, msg, error);
-                }
+                this._tryMethodCall(choice.getName().toLowerCase());
             } else {
                 break;
             }

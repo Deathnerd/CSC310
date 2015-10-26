@@ -1,6 +1,7 @@
 package com.gilleland.george;
 
 import com.gilleland.george.homework.Assignment3;
+import com.gilleland.george.homework.Assignment4;
 import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
@@ -19,11 +20,17 @@ public class Main {
                 new Choice("Assignment 4: Polynomial (Linked List)")
         );
 
-        switch (choice.getIndex()){
+        switch (choice.getIndex()) {
             case 1:
                 System.out.println("Good choice! Running Assignment 3!\n\n");
                 HomeworkAssignment assignment3 = new Assignment3();
                 assignment3.run();
+                break;
+            case 2:
+                System.out.println("Polynomial Linked List! A personal favorite! Running it now!\n\n");
+                HomeworkAssignment assignment4 = new Assignment4();
+                assignment4.run();
+                break;
             default:
                 //
         }
