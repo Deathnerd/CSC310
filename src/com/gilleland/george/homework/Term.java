@@ -29,4 +29,13 @@ public class Term extends Link {
     public void setExponent(int exponent) {
         this.exponent = exponent;
     }
+
+    @Override
+    public void displayLink() {
+        if (this.coefficient > 0) {
+            System.out.printf("{+%d,%d}", this.coefficient, this.exponent);
+        } else {
+            System.out.printf("{%d,%d}", this.coefficient, this.exponent);
+        }
+    }
 }

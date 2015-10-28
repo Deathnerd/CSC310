@@ -15,6 +15,7 @@ public class Utils {
     /**
      * Does what it says on the tin: Given a LinkedHashMap, return its keys inside of an
      * ArrayList
+     *
      * @param hashmap The hashmap
      * @return The ArrayList containing the LinkedHashMap's keys
      */
@@ -114,6 +115,7 @@ public class Utils {
 
     /**
      * Randomly chooses a line from a given file
+     *
      * @param f The pointer to the file to get the random lines from
      * @return The random string from file
      * @throws FileNotFoundException
@@ -133,6 +135,7 @@ public class Utils {
 
     /**
      * Converts a string to a properly capitalized string with the first letter uppercase
+     *
      * @param value The string to capitalize
      * @return The capitalized string (foo becomes Foo)
      */
@@ -143,5 +146,17 @@ public class Utils {
         array[0] = Character.toUpperCase(array[0]);
         // Return string.
         return new String(array);
+    }
+
+    public static boolean isNumber(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    public static boolean isCaret(char c) {
+        return c == '^';
+    }
+
+    public static boolean isOperator(char c) {
+        return c == '-' || c == '+';
     }
 }

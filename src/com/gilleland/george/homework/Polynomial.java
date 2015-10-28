@@ -10,14 +10,19 @@ import java.util.List;
  * Created by Wes Gilleland on 10/25/2015.
  */
 public class Polynomial implements LinkListInterface {
-    private Term head = null;
-    private String expression;
-    private List<String> parts = new ArrayList<>();
+    public Term head = null;
+    public String expression;
+    public List<String> parts = new ArrayList<>();
     private final RegularExpression matcher = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
 
     public Polynomial(String expression) throws InvalidPolynomialExpressionException {
         this.setExpression(expression);
         this.validateExpression();
+
+        for (String term : this.parts) {
+            String[] t = term.split("x\\^");
+            this.insert(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
+        }
     }
 
     private void validateExpression() throws InvalidPolynomialExpressionException {
@@ -46,11 +51,25 @@ public class Polynomial implements LinkListInterface {
         this.getParts().add(t);
     }
 
+    /**
+     * A simple null check on the head term. If null, then the list is assumed empty
+     *
+     * @return Is the head null?
+     */
     @Override
     public boolean isEmpty() {
         return this.head == null;
     }
 
+    /**
+     * Attempts to insert a polynomial term into the first position of the list. If inserting at head would
+     * break sequential order, then an error is thrown
+     *
+     * @param data_items Requires two integer parameters: coefficient, and exponent (in that order) to be
+     *                   passed to the underlying term object
+     * @throws ImproperInsertionOrderException
+     * @see Term
+     */
     @Override
     public void insertFirst(int... data_items) throws ImproperInsertionOrderException {
         Term newTerm = new Term(data_items[0], data_items[1]);
@@ -61,6 +80,15 @@ public class Polynomial implements LinkListInterface {
         this.head = newTerm;
     }
 
+    /**
+     * Attempts to insert a polynomial term into the last position of the list. If inserting at last would
+     * break sequential order, then an error is thrown
+     *
+     * @param data_items Requires two integer parameters: coefficient, and exponent (in that order) to be
+     *                   passed to the underlying term object
+     * @throws ImproperInsertionOrderException
+     * @see Term
+     */
     @Override
     public void insertLast(int... data_items) throws ImproperInsertionOrderException {
         if (this.isEmpty()) {
@@ -81,17 +109,43 @@ public class Polynomial implements LinkListInterface {
         last.next = newTerm;
     }
 
+    /**
+     * Inserts a polynomial term (node) into the linked list, keeping sequential order indexed by
+     * exponents.
+     *
+     * @param data_items Requires two integer parameters: coefficient, and exponent (in that order) to be
+     *                   passed to the underlying Term object
+     * @see Term
+     */
     @Override
     public void insert(int... data_items) {
+        if (this.isEmpty()) {
+            try {
+                this.insertFirst(data_items[0], data_items[1]);
+                return;
+            } catch (ImproperInsertionOrderException e) {
+                e.printStackTrace();
+            }
+        }
         Term newTerm = new Term(data_items[0], data_items[1]);
         Term current = this.head;
-        while (current.next != null && ((Term) current.next).getCoefficient() < newTerm.getCoefficient()) {
+        while (current.next != null && ((Term) current.next).getExponent() < newTerm.getExponent()) {
             current = (Term) current.next;
         }
         newTerm.next = current.next;
         current.next = newTerm;
     }
 
+    /**
+     * Sequentially searches from the beginning of the list to the end, looking for the specified
+     * key. If the key given is -1, then it always returns the last node. Otherwise it will search for
+     * the key (in this case, the exponent of the polynomial term) and return it if it finds it. If it exhausts
+     * the search and cannot find the key, then it throws an exception
+     *
+     * @param key The key (exponent) to search for
+     * @return The polynomial term node with the exponent (key) searched for
+     * @throws NodeNotFoundException
+     */
     @Override
     public Link findNode(int key) throws NodeNotFoundException {
         Term current = this.head;
@@ -114,6 +168,17 @@ public class Polynomial implements LinkListInterface {
         return current;
     }
 
+    /**
+     * Deletes a node from the linked list. Searches sequentially through the list until either
+     * it comes to the node before the node with the key being searched for or the end of the list.
+     * If it reaches the end of hte list and doesn't find it, it throws an exception. Otherwise, it
+     * de-references the target node by setting the target node's next property to null and setting the
+     * node before the target node's next property to the node after the target node.
+     *
+     * @param key The key to search for. In this case, the linked list is indexed by the exponent of the
+     *            polynomial term
+     * @throws NodeNotFoundException
+     */
     @Override
     public void deleteNode(int key) throws NodeNotFoundException {
         Term current = this.head;
@@ -148,7 +213,45 @@ public class Polynomial implements LinkListInterface {
     }
 
 
+    /**
+     * Displays the current state of the linked list in a formatted way.
+     * Example: {1,1} -> {2,2} -> {3,3} -> NULL
+     */
     @Override
     public void displayList() {
+        Term current = this.head;
+        System.out.print("HEAD -> ");
+        if (current == null) {
+            System.out.print("NULL \n");
+        }
+        while (current != null) {
+            current.displayLink();
+            if (current.next != null) {
+                System.out.print(" -> ");
+            } else {
+                System.out.print(" -> NULL \n");
+            }
+            current = (Term) current.next;
+        }
+    }
+
+    @Override
+    public void deleteFirst() throws NodeNotFoundException {
+        if (this.isEmpty()) {
+            throw new NodeNotFoundException();
+        }
+        this.head = (Term) head.next;
+    }
+
+    @Override
+    public void deleteLast() throws NodeNotFoundException {
+        if (this.isEmpty()) {
+            throw new NodeNotFoundException();
+        }
+        Term current = this.head;
+        while (current.next.next != null) {
+            current = (Term) current.next;
+        }
+        current.next = null;
     }
 }

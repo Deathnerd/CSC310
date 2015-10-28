@@ -79,8 +79,7 @@ The polynomial is 25x^10-9x^6-16x^1
 0: exit
 --------------
 3
-Enter a polynomial (e.g., +4x^3+3x^2-5x^0): -60x^13-
-11x^10+9x^6-5x^1+7x^0
+Enter a polynomial (e.g., +4x^3+3x^2-5x^0): -60x^13-11x^10+9x^6-5x^1+7x^0
 -------------
 1: Read
 2. Print

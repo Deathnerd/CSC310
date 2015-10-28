@@ -101,14 +101,14 @@ public class SortAndSearch {
         }
 
         /*
-         * There's some leftover elements in the left array,
+         * There'input_string some leftover elements in the left array,
          * copy them to the right array
          */
         while (left_index <= middle) {
             this.dataset.set(overall_index++, arr[left_index++]);
         }
         /*
-         * There's some leftover elements in the right array,
+         * There'input_string some leftover elements in the right array,
          * copy them to the dataset
          */
         while (right_index <= right) {

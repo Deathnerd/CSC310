@@ -45,7 +45,7 @@ public class QuickPolynomial {
     /**
      * Empty the polynomial
      */
-    void empty(){
+    void empty() {
         this.head = null;
     }
 
@@ -59,12 +59,12 @@ public class QuickPolynomial {
     Helper search(int key) throws TermNotFoundException {
         //search starts from  left to right
         Helper helper = new Helper(null, head);
-        for (QuickTerm curr = helper.current; curr != null && curr.getKey() >= key; helper.moveNext()) {
-            if (key == curr.getKey()) {
+        while (helper.current != null && helper.current.getKey() >= key) {
+            if (key == helper.current.getKey()) {
                 return helper;
             }
+            helper.moveNext();
         }
-        // search was exhausted.
         throw new TermNotFoundException();
     }
 
@@ -104,34 +104,25 @@ public class QuickPolynomial {
      * @param coefficient The coefficient of the term
      */
     void addition(int exponent, String coefficient) {
-        Helper helper = new Helper(null, head);
-
-        if (exponent == 0) {
-            while (helper.current != null && helper.current.getKey() != 0) {
-                helper.moveNext();
-            }
-        } else {
-            while (helper.current != null && exponent > helper.current.getKey()) {
-                helper.moveNext();
-            }
-        }
-
-        if (helper.current == null) {
-            this.insert(exponent, coefficient);
-        } else if (helper.current.getKey() == exponent) {
-            String newCoefficient = String.valueOf(Integer.parseInt(helper.current.getData()) + Integer.parseInt(coefficient));
-            if (Integer.parseInt(newCoefficient) == 0) {
-                try {
-                    this.delete(helper.current.getKey());
-                } catch (TermNotFoundException e) {
-                    //
+        Helper helper = new Helper(null, this.head);
+        coefficient = this.ensureSignage(coefficient);
+        while (helper.current != null) {
+            if (helper.current.getKey() == exponent) {
+                coefficient = String.valueOf(Integer.parseInt(helper.current.getData()) + Integer.parseInt(coefficient));
+                if (Integer.parseInt(coefficient) == 0) {
+                    try {
+                        this.delete(helper.current.getKey());
+                    } catch (TermNotFoundException e) {
+                        //
+                    }
+                    return;
                 }
+                helper.current.setData(this.ensureSignage(coefficient));
                 return;
             }
-            helper.current.setData(this.ensureSignage(newCoefficient));
-        } else {
-            this.insert(exponent, coefficient);
+            helper.moveNext();
         }
+        this.insert(exponent, coefficient);
     }
 
     /**
@@ -146,53 +137,23 @@ public class QuickPolynomial {
         Helper helper = new Helper(null, head);
         coefficient = this.ensureSignage(coefficient);
 
-        //move till we reach the place where the exponent should be
-        while(helper.current != null){
-            if(helper.current.getKey() == exponent){
+        while (helper.current != null) {
+            if (helper.current.getKey() == exponent) {
                 coefficient = String.valueOf(Integer.parseInt(helper.current.getData()) - Integer.parseInt(coefficient));
                 if (Integer.parseInt(coefficient) == 0) {
                     try {
                         this.delete(helper.current.getKey());
                     } catch (TermNotFoundException e) {
-                        // Silently pass
+                        //
                     }
                     return;
                 }
-                helper.current.setData(coefficient);
+                helper.current.setData(this.ensureSignage(coefficient));
                 return;
-            } else if (helper.previous != null && helper.previous.getKey() > exponent && helper.current.getKey() < exponent ){
-                // insert
-                break;
             }
             helper.moveNext();
         }
-        this.insert(exponent, this.ensureSignage("" + Integer.parseInt(coefficient) * (-1)));
-        /*if (exponent == 0) {
-            while (helper.current != null && helper.current.getKey() != 0) {
-                helper.moveNext();
-            }
-        } else {
-            while (helper.current != null && exponent > helper.current.getKey()) {
-                helper.moveNext();
-            }
-        }
-
-        if (helper.current == null) {
-            this.insert(exponent, coefficient);
-        } else if (helper.current.getKey() == exponent) {
-            String newCoefficient = String.valueOf(Integer.parseInt(helper.current.getData()) - Integer.parseInt(coefficient));
-            if (Integer.parseInt(newCoefficient) == 0) {
-                try {
-                    this.delete(helper.current.getKey());
-                } catch (TermNotFoundException e) {
-                    // Silently pass
-                }
-                return;
-            }
-            helper.current.setData(coefficient);
-        } else {
-            this.insert(exponent, coefficient);
-        }*/
+        this.insert(exponent, this.ensureSignage("" + (Integer.parseInt(coefficient) * (-1))));
     }
 
     /**

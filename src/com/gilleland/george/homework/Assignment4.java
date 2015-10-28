@@ -4,16 +4,22 @@ import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.InvalidPolynomialExpressionException;
 import com.gilleland.george.utils.Menu;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Wes Gilleland on 10/21/2015.
  */
 public class Assignment4 extends HomeworkAssignment {
-    public Scanner in = new Scanner(System.in);
-    private Polynomial<Integer> polynomial = null;
+    QuickPolynomial polynomial = new QuickPolynomial();
+    String coefficient = "";
+    String input_string;
+    boolean exponentExists = false;
+    int exponent = 0;
+    List<String> parts = new ArrayList<>();
+    private final RegularExpression matcher = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
 
     @Override
     public void run() {
@@ -27,9 +33,13 @@ public class Assignment4 extends HomeworkAssignment {
             if (choice.getIndex() > 0) {
                 this._tryMethodCall(choice.getName().toLowerCase());
             } else {
-                break;
+                return;
             }
         }
+    }
+
+    private boolean isValidPart(String part) {
+        return this.matcher.matches(part);
     }
 
     /**
@@ -38,27 +48,98 @@ public class Assignment4 extends HomeworkAssignment {
      * an invalid expression
      */
     public void read() {
-        System.out.println("Please input a polynomial expression: ");
-        try {
-            this.polynomial = new Polynomial<>(this.in.nextLine());
-        } catch (InvalidPolynomialExpressionException e) {
-            System.out.println("\n That was invalid! Please try again!");
-        }
+        //build the new polynomial
+        this.polynomial.empty();
+        this.printPrompt();
+        this.getInput();
+        this.parseExpression("read");
     }
 
     public void add() {
-        throw new NotImplementedException();
+        this.printPrompt();
+        this.getInput();
+        this.parseExpression("add");
     }
 
     public void subtract() {
-        throw new NotImplementedException();
+        this.printPrompt();
+        this.getInput();
+        this.parseExpression("subtract");
+    }
+
+    private void printPrompt() {
+        System.out.print("Enter a polynomial: (e.g., +4x^3+3x^2-5x^0): ");
+    }
+
+    private void getInput() {
+        this.input_string = Menu.in.next();
+    }
+
+    private void parseExpression(String operation) {
+        try {
+            this.validateExpression();
+        } catch (InvalidPolynomialExpressionException e) {
+            System.out.println("The expression you entered was not valid!");
+            return;
+        }
+        for (String part : this.parts) {
+            this.coefficient = this.partCoefficient(part);
+            this.exponent = this.partExponent(part);
+            switch (operation) {
+                case "subtract":
+                    this.polynomial.subtraction(this.exponent, this.coefficient);
+                    break;
+                case "add":
+                    this.polynomial.addition(this.exponent, this.coefficient);
+                    break;
+                case "read":
+                    this.polynomial.insert(this.exponent, this.coefficient);
+                    break;
+            }
+        }
+    }
+
+    private void validateExpression() throws InvalidPolynomialExpressionException {
+        this.parts.clear();
+        if (this.input_string.charAt(0) != '-' && this.input_string.charAt(0) != '+') {
+            this.input_string = null;
+            throw new InvalidPolynomialExpressionException();
+        }
+
+        int j = 0;
+        for (int i = 1; i < this.input_string.length(); i++) {
+            if (this.input_string.charAt(i) == '-' || this.input_string.charAt(i) == '+') {
+                String t = this.input_string.substring(j, i);
+                j = i;
+                if (!this.isValidPart(t)) {
+                    this.input_string = null;
+                    throw new InvalidPolynomialExpressionException();
+                }
+                this.parts.add(t);
+            }
+        }
+        String t = this.input_string.substring(j);
+        if (!this.isValidPart(t)) {
+            this.input_string = null;
+            throw new InvalidPolynomialExpressionException();
+        }
+        this.parts.add(t);
+    }
+
+    private String partCoefficient(String part) {
+        return part.split("x\\^")[0];
+    }
+
+    private Integer partExponent(String part) {
+        return Integer.parseInt(part.split("x\\^")[1]);
     }
 
     public void print() {
-        if(this.polynomial.getExpression() != null){
-            System.out.printf("The current polynomial is %s\n", this.polynomial.getExpression());
+        //print the polynomial
+        if (polynomial.length > 0) {
+            polynomial.print();
         } else {
-            System.out.println("There's currently no polynomial loaded.");
+            System.out.println("No polynomial defined, please enter one\n");
         }
     }
 }

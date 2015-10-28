@@ -20,4 +20,8 @@ public interface LinkListInterface {
     void deleteNode(int key) throws NodeNotFoundException;
 
     void displayList();
+
+    void deleteFirst() throws NodeNotFoundException;
+
+    void deleteLast() throws NodeNotFoundException;
 }
