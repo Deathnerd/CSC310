@@ -6,8 +6,6 @@ import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Please choose an Assignment so that you may deliver\n" +
@@ -15,7 +13,8 @@ public class Main {
         /**
          * The choices to display for the main menu
          */
-        Choice choice = Menu.display(
+        Menu menu = new Menu();
+        Choice choice = menu.display(
                 new Choice("Assignment 3: Sorting and Searching"),
                 new Choice("Assignment 4: Polynomial (Linked List)")
         );

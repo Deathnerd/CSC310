@@ -23,8 +23,9 @@ public class Assignment4 extends HomeworkAssignment {
 
     @Override
     public void run() {
+        Menu menu = new Menu();
         while (true) {
-            Choice choice = Menu.display(
+            Choice choice = menu.display(
                     new Choice("Read"),
                     new Choice("Print"),
                     new Choice("Add"),

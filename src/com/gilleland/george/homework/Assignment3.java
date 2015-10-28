@@ -23,9 +23,10 @@ public class Assignment3 extends HomeworkAssignment {
      */
     @Override
     public void run() {
+        Menu menu = new Menu();
         System.out.println(Assignment3.class.getClassLoader().getResource("logging.properties"));
         while (true) {
-            Choice choice = Menu.display(
+            Choice choice = menu.display(
                     new Choice("Read"),
                     new Choice("Generate"),
                     new Choice("Print"),
@@ -73,7 +74,8 @@ public class Assignment3 extends HomeworkAssignment {
      * Present the user with the option to sort a data set using three sorting methods
      */
     public void sort() {
-        Choice choice = Menu.display(
+        Menu menu = new Menu();
+        Choice choice = menu.display(
                 new Choice("Merge"),
                 new Choice("Quick"),
                 new Choice("Shell")
@@ -132,7 +134,8 @@ public class Assignment3 extends HomeworkAssignment {
      * Present the user with the options to search for a key in the data set
      */
     public void search() {
-        Choice choice = Menu.display(
+        Menu menu = new Menu();
+        Choice choice = menu.display(
                 new Choice("Binary"),
                 new Choice("Interpolation")
         );
