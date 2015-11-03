@@ -5,10 +5,17 @@ package com.gilleland.george.utils;
  */
 public class Choice {
     private String name;
+    private String prompt;
     private int index;
 
     public Choice(String name) {
         this.name = name;
+        this.prompt = null;
+    }
+
+    public Choice(String name, String prompt) {
+        this.name = name;
+        this.prompt = prompt;
     }
 
     public String getName() {
@@ -17,6 +24,14 @@ public class Choice {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPrompt() {
+        return this.prompt;
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
     }
 
     public int getIndex() {

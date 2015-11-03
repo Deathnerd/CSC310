@@ -10,6 +10,7 @@ public class Menu {
     public static Scanner in = new Scanner(System.in);
     private String default_prompt = "Enter your choice: ";
     private String choice_format = "%d. %s\n";
+    // TODO: consolidate the exit components into an actual Choice object
     private int exit_number = 0;
     private String exit_text = "Exit";
     private String incorrect_choice_prompt = "Please choose a correct selection from the following menu";
@@ -71,7 +72,11 @@ public class Menu {
     public Choice display(Choice... choices) {
         int i = 1;
         for (Choice choice : choices) {
-            System.out.printf(this.choice_format, i++, choice.getName());
+            if (choice.getPrompt() != null) {
+                System.out.printf(this.choice_format, i++, choice.getPrompt());
+            } else {
+                System.out.printf(this.choice_format, i++, choice.getName());
+            }
         }
         this.showExitChoice();
         int t = Menu.in.nextInt();
@@ -85,5 +90,17 @@ public class Menu {
         }
         choices[t - 1].setIndex(t);
         return choices[t - 1];
+    }
+
+    public int displayYesNo(String prompt) {
+        System.out.println(prompt);
+        System.out.printf(this.choice_format, 1, "Yes");
+        System.out.printf(this.choice_format, 2, "No");
+        int t = Menu.in.nextInt();
+        if (t < 1 || t > 2) {
+            this.showIncorrectChoiceMessage();
+            this.displayYesNo(prompt);
+        }
+        return t;
     }
 }

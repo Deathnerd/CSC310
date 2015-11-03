@@ -24,7 +24,6 @@ public class Assignment3 extends HomeworkAssignment {
     @Override
     public void run() {
         Menu menu = new Menu();
-        System.out.println(Assignment3.class.getClassLoader().getResource("logging.properties"));
         while (true) {
             Choice choice = menu.display(
                     new Choice("Read"),
