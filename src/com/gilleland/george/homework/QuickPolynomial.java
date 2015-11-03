@@ -261,7 +261,7 @@ public class QuickPolynomial {
      * @return The signed number as a string
      */
     private String ensureSignage(String coefficient) {
-        return (!Utils.isOperator(coefficient.charAt(0))) ? "+" + coefficient : coefficient;
+        return (!Utils.isPlusOrMinus(coefficient.charAt(0))) ? "+" + coefficient : coefficient;
     }
 
     /**

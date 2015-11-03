@@ -26,7 +26,7 @@ public class StackLinkedList {
     /**
      * <p>Implementation of a Stack using an underlying Linked List.
      * Through the magic of Java's autoboxing and varargs, this can take any
-     * initial values for the stack (for Stacks homework, expect Character or Integer
+     * initial values for the stack (for Stacks homework, expect Character or Number
      * data (or their primitives)), in the order that they will be inserted into the stack.
      * </p>
      * <p>
@@ -60,7 +60,7 @@ public class StackLinkedList {
      * <p>Push new data to the top of the stack.</p>
      * <p>Increases the size by 1</p>
      *
-     * @param data Integer or Character data (or their primatives). Yay for Java's
+     * @param data Number or Character data (or their primatives). Yay for Java's
      *             autoboxing!
      */
     public void push(Object data) {
@@ -72,7 +72,7 @@ public class StackLinkedList {
      * <p>Return but do not remove the data from the top of the stack.</p>
      * <p>Does not decrease the size.</p>
      * <p>Note, you will have to do your own type checks for this. For the Stacks homework, expect data
-     * of either Integer or Character types</p>
+     * of either Number or Character types</p>
      *
      * @return The data from the top of the stack
      * @throws EmptyStackException
@@ -88,7 +88,7 @@ public class StackLinkedList {
      * <p>Returns the data on the top of the stack and removes it from the stack.</p>
      * <p>Decrements the size by 1.</p>
      * <p>Note, you will have to do your own type checks for this. For the Stacks homework, expect data
-     * of either Integer or Character types</p>
+     * of either Number or Character types</p>
      *
      * @return The data on the top of the stack
      * @throws EmptyStackException
@@ -111,5 +111,13 @@ public class StackLinkedList {
      */
     public int getSize() {
         return this.size;
+    }
+
+    public boolean topIsCharacter() {
+        return this.peek() instanceof Character;
+    }
+
+    public boolean topIsNumber() {
+        return this.peek() instanceof Number;
     }
 }

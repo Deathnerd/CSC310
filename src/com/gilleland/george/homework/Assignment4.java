@@ -164,7 +164,7 @@ public class Assignment4 extends HomeworkAssignment {
          * for a polynomial must have an operator before each coefficient, even if that
          * coefficient is positive and at the beginning
          */
-        if (!Utils.isOperator(this.input_string.charAt(0))) {
+        if (!Utils.isPlusOrMinus(this.input_string.charAt(0))) {
             this.input_string = null;
             throw new InvalidPolynomialExpressionException();
         }
@@ -183,7 +183,7 @@ public class Assignment4 extends HomeworkAssignment {
          */
         int j = 0;
         for (int i = 1; i < this.input_string.length(); i++) {
-            if (Utils.isOperator(this.input_string.charAt(0))) {
+            if (Utils.isPlusOrMinus(this.input_string.charAt(0))) {
                 String term = this.input_string.substring(j, i);
                 j = i;
                 this.addTerm(term);
