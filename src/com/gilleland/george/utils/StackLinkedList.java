@@ -113,11 +113,12 @@ public class StackLinkedList {
         return this.size;
     }
 
+    /**
+     * Really shouldn't need this, but I still haven't hit my groove with generics yet
+     *
+     * @return Is the top stack element an instance of Character?
+     */
     public boolean topIsCharacter() {
         return this.peek() instanceof Character;
-    }
-
-    public boolean topIsNumber() {
-        return this.peek() instanceof Number;
     }
 }
