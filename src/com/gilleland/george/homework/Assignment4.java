@@ -183,7 +183,7 @@ public class Assignment4 extends HomeworkAssignment {
          */
         int j = 0;
         for (int i = 1; i < this.input_string.length(); i++) {
-            if (Utils.isPlusOrMinus(this.input_string.charAt(0))) {
+            if (Utils.isPlusOrMinus(this.input_string.charAt(i))) {
                 String term = this.input_string.substring(j, i);
                 j = i;
                 this.addTerm(term);
