@@ -17,8 +17,8 @@ import com.gilleland.george.utils.Utils;
  * @author Wes Gilleland
  */
 public class QuickPolynomial {
-    private QuickTerm head;
     public int length = 0;
+    private QuickTerm head;
 
     /**
      * Constructor. Sets the head to null upon instantiation
@@ -208,12 +208,12 @@ public class QuickPolynomial {
      * @param exponent The exponent (key) to search by
      * @throws TermNotFoundException if trying to delete a term that doesn't exist with the given key
      */
-    void delete(int exponent) throws TermNotFoundException {
+    public void delete(int exponent) throws TermNotFoundException {
         /*
          * Search for the term in the linked list by exception. Will throw a
          * TermNotFoundException if it cannot find one.
          */
-        delete(this.search(exponent));
+        this.delete(this.search(exponent));
     }
 
     /**
@@ -324,24 +324,6 @@ class QuickTerm {
     }
 
     /**
-     * Accessor method for the data (coefficient)
-     *
-     * @return the data of the term
-     */
-    String getData() {
-        return this.data;
-    }
-
-    /**
-     * Accessor method for the next term
-     *
-     * @return the reference to the next term
-     */
-    QuickTerm getNext() {
-        return this.next;
-    }
-
-    /**
      * Updater method for the key (exponent)
      *
      * @param key The new value of the key
@@ -351,12 +333,30 @@ class QuickTerm {
     }
 
     /**
+     * Accessor method for the data (coefficient)
+     *
+     * @return the data of the term
+     */
+    String getData() {
+        return this.data;
+    }
+
+    /**
      * Updater method for the data (coefficient)
      *
      * @param data The new value for the data
      */
     void setData(String data) {
         this.data = data;
+    }
+
+    /**
+     * Accessor method for the next term
+     *
+     * @return the reference to the next term
+     */
+    QuickTerm getNext() {
+        return this.next;
     }
 
     /**

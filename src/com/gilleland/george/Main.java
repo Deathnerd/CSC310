@@ -3,9 +3,13 @@ package com.gilleland.george;
 import com.gilleland.george.homework.Assignment3;
 import com.gilleland.george.homework.Assignment4;
 import com.gilleland.george.homework.Assignment5;
+import com.gilleland.george.homework.Assignment6;
 import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +21,9 @@ public class Main {
         Choice choice = menu.display(
                 new Choice("Assignment 3", "Assignment 3: Sorting and Searching"),
                 new Choice("Assignment 4", "Assignment 4: Polynomial (Linked List)"),
-                new Choice("Assignment 5", "Assignment 5: Infix to Postfix Converter (Stacks)")
+                new Choice("Assignment 5", "Assignment 5: Infix to Postfix Converter (Stacks)"),
+                new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)"),
+                new Choice("test")
         );
 
         switch (choice.getName()) {
@@ -36,6 +42,14 @@ public class Main {
                 HomeworkAssignment assignment5 = new Assignment5();
                 assignment5.run();
                 break;
+            case "Assignment 6":
+                System.out.println("Circular Queues using arrays!");
+                HomeworkAssignment assignment6 = new Assignment6();
+                assignment6.run();
+                break;
+            case "test":
+                int res = 39 / 10;
+                System.out.println(res);
             default:
                 //
         }

@@ -123,4 +123,8 @@ public class Utils {
                 Utils.isCurlyBracket(character) ||
                 Utils.isSquareBracket(character);
     }
+
+    public static boolean between(int var, int lower, int upper) {
+        return (var <= upper && var >= lower);
+    }
 }

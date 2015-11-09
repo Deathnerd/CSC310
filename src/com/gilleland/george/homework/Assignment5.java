@@ -83,7 +83,7 @@ public class Assignment5 extends HomeworkAssignment {
                  * a subexpression
                  */
                 else if (Utils.isOneOf(current_char, ')')) {
-                    handleSubExpression(operations_stack);
+                    this.handleSubExpression(operations_stack);
                 }
                 /*
                  * If the the current character is an operator and there's an operator on the stack,
@@ -91,7 +91,7 @@ public class Assignment5 extends HomeworkAssignment {
                  */
                 else if (Utils.isPlusOrMinus(current_char) && operations_stack.topIsCharacter() &&
                         Utils.isOneOf(((Character) operations_stack.peek()).charValue(), '+', '-', '*', '/')) {
-                    handlePlusAndMinus(operations_stack);
+                    this.handlePlusAndMinus(operations_stack);
                     /*
                      * Operator is handled, push the current character to the stack
                      */
@@ -106,7 +106,7 @@ public class Assignment5 extends HomeworkAssignment {
                 else if (Utils.isMultOrDiv(current_char) &&
                         operations_stack.topIsCharacter() &&
                         Utils.isMultOrDiv(((Character) operations_stack.peek()).charValue())) {
-                    handleMultAndDiv(operations_stack);
+                    this.handleMultAndDiv(operations_stack);
                     /*
                      * Operator is handled, push the current character to the stack
                      */
@@ -124,7 +124,7 @@ public class Assignment5 extends HomeworkAssignment {
         /*
          * Clean up the remaining operations in the stack
          */
-        cleanupRemaining(operations_stack);
+        this.cleanupRemaining(operations_stack);
         /*
          * Let the user see what the resulting postfix expression is
          */
