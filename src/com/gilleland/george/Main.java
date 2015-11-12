@@ -19,8 +19,7 @@ public class Main {
                 new Choice("Assignment 3", "Assignment 3: Sorting and Searching"),
                 new Choice("Assignment 4", "Assignment 4: Polynomial (Linked List)"),
                 new Choice("Assignment 5", "Assignment 5: Infix to Postfix Converter (Stacks)"),
-                new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)"),
-                new Choice("test")
+                new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)")
         );
 
         switch (choice.getName()) {
