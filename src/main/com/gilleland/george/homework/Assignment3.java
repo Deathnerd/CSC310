@@ -4,11 +4,17 @@ import com.gilleland.george.exceptions.NotSortedException;
 import com.gilleland.george.objects.Choice;
 import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.objects.SortAndSearch;
-import com.gilleland.george.utils.*;
+import com.gilleland.george.utils.Menu;
+import com.gilleland.george.utils.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -108,27 +114,18 @@ public class Assignment3 extends HomeworkAssignment {
      *
      * @throws FileNotFoundException
      */
-    public void generate() throws FileNotFoundException {
+    public void generate() throws IOException {
         this.dataset.clear();
         this.sortAndSearch.is_sorted = false;
-        boolean unique;
         int bound = rand.nextInt(16);
         if (bound <= 6) {
             bound = 10;
         }
-        File file = new File(com.gilleland.george.resources.Loader.class.getResource("scrabble_words.txt").getPath());
-        for (int i = 0; i < bound; i++) {
-            String choose = Utils.choose(file);
-            unique = true;
-            for (String element : this.dataset) {
-                // check for unique first character values
-                if (element.charAt(0) == choose.charAt(0)) {
-                    // TODO: Make this more efficient
-                    i--; // try again!
-                    unique = false;
-                }
-            }
-            if (unique) {
+        final Path abs_path = Paths.get("src/resources/scrabble_words.txt").toAbsolutePath();
+        List<String> lines = Files.readAllLines(abs_path);
+        while (this.dataset.size() < bound) {
+            String choose = Utils.choose(lines);
+            if (this.dataset.stream().noneMatch((s) -> s.startsWith(choose.substring(0, 1)))) {
                 this.dataset.add(choose);
             }
         }

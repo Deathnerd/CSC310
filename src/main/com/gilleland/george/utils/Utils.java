@@ -2,6 +2,8 @@ package com.gilleland.george.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,24 +15,13 @@ import java.util.Scanner;
 public class Utils {
 
     /**
-     * <p>Randomly chooses a line from a given file</p>
-     *
-     * @param file The pointer to the file to get the random lines from
-     * @return The random string from file
-     * @throws FileNotFoundException
+     * Randomly chooses a word from a list of words
+     * @param words The list of words to choose from
+     * @return The first element after shuffling all words in the list
      */
-    public static String choose(File file) throws FileNotFoundException {
-        String result = null;
-        Random rand = new Random();
-        int n = 0;
-        for (Scanner sc = new Scanner(file); sc.hasNext(); ) {
-            ++n;
-            String line = sc.nextLine();
-            if (rand.nextInt(n) == 0) {
-                result = line;
-            }
-        }
-        return result;
+    public static String choose(List<String> words) {
+        Collections.shuffle(words);
+        return words.get(0);
     }
 
     /**
