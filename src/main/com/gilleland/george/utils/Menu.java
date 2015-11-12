@@ -94,6 +94,17 @@ public class Menu {
         return choices[t - 1];
     }
 
+    /**
+     * <p>Display a menu of choices for the user to choose from and
+     * act upon that choice with a callback method that will be invoked
+     * on a non-zero, proper choice selection.</p>
+     *
+     * @param callback The {@link MenuCallback} Functional Interface to use on the
+     *                 selected choice
+     * @param choices  The {@link Choice} objects to display
+     * @return The choice that was selected after it's modified by the callback
+     * @see MenuCallback#execute(Choice, int)
+     */
     public Choice display(MenuCallback callback, Choice... choices) {
         int i = 1;
         for (Choice choice : choices) {
@@ -111,11 +122,18 @@ public class Menu {
             return c;
         } else if (t < 0 || t > choices.length) {
             this.showIncorrectChoiceMessage();
-            return this.display(choices);
+            return this.display(callback, choices);
         }
-        return (Choice) callback.execute(choices[t - 1]);
+        return callback.execute(choices[t - 1], t);
     }
 
+    /**
+     * Provides a simple method to display a Yes or No question and return
+     * the boolean value of what was selected.
+     *
+     * @param prompt The prompt to present to the user
+     * @return Whether the user chose yes or no
+     */
     public boolean displayYesNo(String prompt) {
         System.out.println(prompt);
         System.out.printf(this.choice_format, 1, "Yes");
