@@ -1,11 +1,8 @@
 package com.gilleland.george.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Utilities class
@@ -16,6 +13,7 @@ public class Utils {
 
     /**
      * Randomly chooses a word from a list of words
+     *
      * @param words The list of words to choose from
      * @return The first element after shuffling all words in the list
      */
@@ -51,13 +49,8 @@ public class Utils {
      * @param ops       The characters the first argument might be
      * @return If the first parameter is equal to one of the other arguments
      */
-    public static boolean isOneOf(char character, char... ops) {
-        for (char op : ops) {
-            if (character == op) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean isOneOf(char character, Character... ops) {
+        return Arrays.asList(ops).stream().anyMatch((c) -> c == character);
     }
 
     /**
