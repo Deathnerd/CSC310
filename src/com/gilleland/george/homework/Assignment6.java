@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by Wes Gilleland on 11/9/2015.
@@ -37,9 +38,9 @@ public class Assignment6 extends HomeworkAssignment {
     /**
      * When the customers are assigned numbers and turned into {@link Customer}
      * objects, this is where they go.
+     *
      * @see Customer
      * @see #assign()
-     * @see #assign(ArrayList)
      */
     private ArrayList<Customer> customers = new ArrayList<>();
     /**
@@ -95,32 +96,28 @@ public class Assignment6 extends HomeworkAssignment {
      * It then uses {@link #customers_input}, assigns each customer a random number (from 0 to 40)
      * as a {@link Customer} object and adds them to the {@link #customers} variable where it
      * will then be used by the {@link #display_counter(int, int, int)}, {@link #display_customers()},
-     * {@link #recategorize()}, {@link #categorize()}, and {@link #assign(ArrayList)} methods.</p>
+     * and {@link #categorize()} methods.</p>
      *
      * @see #customers
      * @see #customers_input
      * @see Customer
      * @see #display_counter(int, int, int)
      * @see #display_customers()
-     * @see #recategorize()
      * @see #categorize()
-     * @see #assign(ArrayList)
      */
     public void assign() {
         this.customers.clear();
-        System.out.println("Queuing up customers!");
-        for (String customer : this.customers_input) {
-            Customer c = new Customer(customer.trim(), (new Random()).nextInt(40));
-            this.customers.add(c);
-        }
+        System.out.println("Assigning each customer a random service number from 0 to 40!");
+        this.customers.addAll(this.customers_input.stream()
+                .map(customer_name -> new Customer(customer_name.trim(), (new Random()).nextInt(41)))
+                .collect(Collectors.toList()));
+        this.customers_input.clear();
     }
 
     /**
      * <p>Displays the customers currently with numbers assigned to them.</p>
      * <p>If there are no customers with assigned numbers ({@link #customers} is empty),
-     * then the user is told and the method exits. If there are customers that have been
-     * entered ({@link #customers_input} is not empty), but not assigned numbers, then
-     * the user is told and the method exits.</p>
+     * then the user is told and the method exits.</p>
      *
      * @see #customers
      * @see #customers_input
@@ -128,9 +125,6 @@ public class Assignment6 extends HomeworkAssignment {
     public void display_customers() {
         if (this.customers.isEmpty()) {
             System.out.println("There are no customers with assigned numbers. Please assign service numbers to them!");
-            return;
-        } else if (!this.customers_input.isEmpty()) {
-            System.out.println("There are some customers entered without assigned numbers. You may assign them numbers in the main menu.");
             return;
         }
         System.out.println("The current customers are: ");
@@ -146,10 +140,9 @@ public class Assignment6 extends HomeworkAssignment {
      * customer to the queue and it is full, then the user will be notified
      * which customer was not able to be queued and the program will continue.</p>
      * <p> If there were customers that could not be queued, then the user
-     * will be given another opportunity to assign the customers new numbers
-     * and attempt to categorize them again. If that fails, then the customers
-     * are discarded and the program continues. The user is notified of failures
-     * and that condition.</p>
+     * will not be given another opportunity to reassign the customers
+     * new service numbers and attempt another categorizing this session.
+     * The user will be informed and instructed accordingly</p>
      */
     public void categorize() {
         /*
@@ -161,6 +154,7 @@ public class Assignment6 extends HomeworkAssignment {
         for (CircularQueue q : this.queues) {
             q.reset();
         }
+        Collection<Customer> temp = new ArrayList<>();
         for (Customer c : this.customers) {
             try {
                 int service_number = c.getServiceNumber();
@@ -173,62 +167,22 @@ public class Assignment6 extends HomeworkAssignment {
                 } else {
                     this.queues[3].enqueue(c);
                 }
-                this.customers.remove(c);
+                temp.add(c);
             } catch (QueueOverflowError e) {
-                System.out.printf("Could not queue up %s. The corresponding queue is full!", c.toString());
+                System.out.printf("Could not queue up %s. The corresponding queue is full!\n", c.toString());
             }
         }
+        this.customers.removeAll(temp);
         System.out.println("Done categorizing!");
 
         /*
-         * There are still some customers waiting to be categorized.
-         * Give the user an opportunity to re-assign them some numbers.
+         * There are still some customers waiting to be categorized. This program
+         * and its programmer are lazy and will not give them another chance for
+         * queueing this session
          */
         if (!this.customers.isEmpty()) {
-            boolean reassign = this.menu.displayYesNo("There were some customers that could not be categorized. Would you like to attempt to reassign them numbers?");
-            if (reassign) {
-                this.assign(this.customers);
-                System.out.println("Done! Attempting to re-queue these customers. If this fails, no other attempts will be offered.");
-                this.recategorize();
-            }
-        }
-    }
-
-    /**
-     * <p>A stripped down version of the {@link #categorize()} method in that it doesn't reset
-     * the queues before it attempts to add customers to the queue. This is operating under
-     * the assumption that this method will only be called if the user chooses to reassign users
-     * that were not able to be initially put into a queue new numbers, where they will then
-     * be given another chance to enter a queue. Just like the {@link #categorize()} method, this
-     * will also alert the user if the attempt to queue would overflow the queue.</p>
-     * <p>This method does not offer another chance to requeue customers. If they are not queued here,
-     * then they will be discarded.</p>
-     */
-    private void recategorize() {
-        for (Customer c : this.customers) {
-            try {
-                int service_number = c.getServiceNumber();
-                if (service_number < 10) {
-                    this.queues[0].enqueue(c);
-                } else if (service_number < 20 && service_number >= 10) {
-                    this.queues[1].enqueue(c);
-                } else if (service_number < 30 && service_number >= 20) {
-                    this.queues[2].enqueue(c);
-                } else {
-                    this.queues[3].enqueue(c);
-                }
-                this.customers.remove(c);
-            } catch (QueueOverflowError e) {
-                System.out.printf("Could not queue up %s. The corresponding queue is full!", c.toString());
-            }
-        }
-    }
-
-    private void assign(ArrayList<Customer> customers) {
-        this.customers.clear();
-        for (Customer c : customers) {
-            c.setServiceNumber((new Random()).nextInt(40));
-            this.customers.add(c);
+            System.out.println("There were some customers that could not be categorized. They will be discarded. If you would like to queue them up, please include them in a new queueing session");
+            this.customers.clear();
         }
     }
 
