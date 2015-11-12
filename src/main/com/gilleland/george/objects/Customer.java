@@ -21,7 +21,7 @@ public class Customer implements Comparable<Customer> {
      * @param name           The name of the customer
      * @param service_number The service number for the customer
      */
-    Customer(String name, int service_number) {
+    public Customer(String name, int service_number) {
         this.name = name;
         this.service_number = service_number;
     }

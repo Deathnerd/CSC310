@@ -1,7 +1,7 @@
 package com.gilleland.george.objects;
 
-import com.gilleland.george.exceptions.QueueOverflowError;
-import com.gilleland.george.exceptions.QueueUnderflowError;
+import com.gilleland.george.exceptions.QueueOverflowException;
+import com.gilleland.george.exceptions.QueueUnderflowException;
 
 /**
  * A circular queue for {@link com.gilleland.george.homework.Assignment6} using
@@ -11,9 +11,9 @@ public class CircularQueue {
 
     /**
      * The maximum amount of items the queue can hold. If this is exceeded,
-     * a {@link QueueOverflowError} is generated
+     * a {@link QueueOverflowException} is generated
      *
-     * @see QueueOverflowError
+     * @see QueueOverflowException
      */
     public final int max_size;
     /**
@@ -41,7 +41,7 @@ public class CircularQueue {
      *
      * @param max_size The maximum number of elements this Circular Queue can hold
      */
-    CircularQueue(int max_size) {
+    public CircularQueue(int max_size) {
         this.max_size = max_size;
         this.data = new Customer[this.max_size];
     }
@@ -55,12 +55,12 @@ public class CircularQueue {
      * @param initial_data The Customer objects to enqueue
      * @see #enqueue(Customer...)
      */
-    CircularQueue(int max_size, Customer... initial_data) {
+    public CircularQueue(int max_size, Customer... initial_data) {
         this.max_size = max_size;
         this.data = new Customer[this.max_size];
         try {
             this.enqueue(initial_data);
-        } catch (QueueOverflowError e) {
+        } catch (QueueOverflowException e) {
             System.out.println("Could not instantiate new Circular Queue: Queue overflowed!");
         }
     }
@@ -69,9 +69,9 @@ public class CircularQueue {
      * A convenience method to take in any number of customers and attempt to add them to the queue
      *
      * @param customers The customers to add to the circular queue
-     * @throws QueueOverflowError
+     * @throws QueueOverflowException
      */
-    public final void enqueue(Customer... customers) throws QueueOverflowError {
+    public final void enqueue(Customer... customers) throws QueueOverflowException {
         for (Customer customer : customers) {
             this.enqueue(customer);
         }
@@ -79,19 +79,19 @@ public class CircularQueue {
 
     /**
      * <p>Attempts to add a {@link Customer} object to the rear of the current queue.
-     * If the queue is full, then a {@link QueueOverflowError} is thrown.</p>
+     * If the queue is full, then a {@link QueueOverflowException} is thrown.</p>
      * <p>Otherwise it will reposition the {@link #rear} index and add the customer
      * to the queue at the new position of {@link #rear}. It will then increment the
      * value stored in {@link #num_items} by 1, indicating that the number of items
      * stored in the queue has increased by 1.</p>
      *
      * @param customer The customer to attempt to add
-     * @throws QueueOverflowError
+     * @throws QueueOverflowException
      * @see #isFull()
      */
-    public final void enqueue(Customer customer) throws QueueOverflowError {
+    public final void enqueue(Customer customer) throws QueueOverflowException {
         if (this.isFull()) {
-            throw new QueueOverflowError();
+            throw new QueueOverflowException();
         }
         if (this.rear == this.max_size - 1) {
             this.rear = -1;
@@ -102,20 +102,20 @@ public class CircularQueue {
 
     /**
      * <p>Attempts to dequeue a {@link Customer} from the front of the
-     * queue. If the queue is empty, then it will throw a {@link QueueUnderflowError}.</p>
+     * queue. If the queue is empty, then it will throw a {@link QueueUnderflowException}.</p>
      * <p>Otherwise, it will remove the {@link Customer} stored at the index of {@link #front},
      * re-position the {@link #front} index, and decrement the value stored in {@link #num_items}
      * before returning the {@link Customer} object that was at the front of the queue.</p>
      *
      * @return The customer at the front of the queue
-     * @throws QueueUnderflowError
+     * @throws QueueUnderflowException
      * @see #isEmpty()
      * @see Customer
-     * @see QueueUnderflowError
+     * @see QueueUnderflowException
      */
-    public Customer dequeue() throws QueueUnderflowError {
+    public Customer dequeue() throws QueueUnderflowException {
         if (this.isEmpty()) {
-            throw new QueueUnderflowError();
+            throw new QueueUnderflowException();
         }
         Customer customer = this.data[this.front++];
         if (this.front == this.max_size) {

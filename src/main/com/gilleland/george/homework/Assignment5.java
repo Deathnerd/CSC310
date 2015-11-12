@@ -1,6 +1,6 @@
 package com.gilleland.george.homework;
 
-import com.gilleland.george.exceptions.ZeroDivisionError;
+import com.gilleland.george.exceptions.ZeroDivisionException;
 import com.gilleland.george.objects.Choice;
 import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.objects.StackLinkedList;
@@ -248,7 +248,7 @@ public class Assignment5 extends HomeworkAssignment {
     /**
      * Given that there's a current postfix expression, evaluate it and report the answer
      */
-    public void evaluate() throws ZeroDivisionError {
+    public void evaluate() throws ZeroDivisionException {
         /*
          * Create a new empty stack to use for processing
          */
@@ -285,7 +285,7 @@ public class Assignment5 extends HomeworkAssignment {
          *
          * If the current character is a division, then pop out the right term into a
          * temporary variable as well as the left term into another temporary variable.
-         * Then check if the right term is 0. If it is, throw a new ZeroDivisionError.
+         * Then check if the right term is 0. If it is, throw a new ZeroDivisionException.
          * If not, then push the operand of dividing the left term by the right term onto
          * the stack.
          */
@@ -323,7 +323,7 @@ public class Assignment5 extends HomeworkAssignment {
                         right_operand = ((Number) stack.pop()).intValue();
                         left_operand = ((Number) stack.pop()).intValue();
                         if (right_operand == 0) {
-                            throw new ZeroDivisionError();
+                            throw new ZeroDivisionException();
                         }
                         stack.push(left_operand / right_operand);
                     } catch (EmptyStackException e) {

@@ -116,8 +116,9 @@ public class Assignment3 extends HomeworkAssignment {
         if (bound <= 6) {
             bound = 10;
         }
+        File file = new File(com.gilleland.george.resources.Loader.class.getResource("scrabble_words.txt").getPath());
         for (int i = 0; i < bound; i++) {
-            String choose = Utils.choose(new File(getClass().getResource("scrabble_words.txt").getPath()));
+            String choose = Utils.choose(file);
             unique = true;
             for (String element : this.dataset) {
                 // check for unique first character values

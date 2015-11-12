@@ -1,7 +1,7 @@
 package com.gilleland.george.homework;
 
-import com.gilleland.george.exceptions.QueueOverflowError;
-import com.gilleland.george.exceptions.QueueUnderflowError;
+import com.gilleland.george.exceptions.QueueOverflowException;
+import com.gilleland.george.exceptions.QueueUnderflowException;
 import com.gilleland.george.objects.Choice;
 import com.gilleland.george.objects.CircularQueue;
 import com.gilleland.george.objects.Customer;
@@ -174,7 +174,7 @@ public class Assignment6 extends HomeworkAssignment {
                     this.queues[3].enqueue(c);
                 }
                 temp.add(c);
-            } catch (QueueOverflowError e) {
+            } catch (QueueOverflowException e) {
                 System.out.printf("Could not queue up %s. The corresponding queue is full!\n", c.toString());
             }
         }
@@ -207,7 +207,7 @@ public class Assignment6 extends HomeworkAssignment {
     /**
      * <p>This method is called by {@link #display_counters()} to present a formatted
      * version of the contents of the queues. It does this by dequeueing the queues until
-     * they are empty (in this implementation, a try/catch intercepts a {@link QueueUnderflowError}
+     * they are empty (in this implementation, a try/catch intercepts a {@link QueueUnderflowException}
      * and breaks the infinite loop) and printing the current Customer's string representation.</p>
      *
      * @param counter_number  The number of the counter to show. Also is the normal (non-zero)
@@ -216,7 +216,7 @@ public class Assignment6 extends HomeworkAssignment {
      *                        the customers should have
      * @param end_range       The end of the range for each counter, ie, the service numbers that
      *                        the customers should have
-     * @see QueueUnderflowError
+     * @see QueueUnderflowException
      * @see Customer#toString()
      * @see Customer
      */
@@ -236,7 +236,7 @@ public class Assignment6 extends HomeworkAssignment {
         while (true) {
             try {
                 t.add(counter.dequeue().toString());
-            } catch (QueueUnderflowError e) {
+            } catch (QueueUnderflowException e) {
                 break;
             }
         }
