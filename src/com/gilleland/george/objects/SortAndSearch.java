@@ -1,6 +1,6 @@
-package com.gilleland.george.homework;
+package com.gilleland.george.objects;
 
-import com.gilleland.george.utils.NotSortedException;
+import com.gilleland.george.exceptions.NotSortedException;
 
 import java.util.ArrayList;
 

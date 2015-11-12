@@ -1,9 +1,6 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.objects;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by Wes Gilleland on 11/4/2015.

@@ -1,4 +1,4 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.exceptions;
 
 /**
  * Custom exception to be thrown when a callback fails

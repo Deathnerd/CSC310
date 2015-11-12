@@ -1,5 +1,11 @@
 package com.gilleland.george.homework;
 
+import com.gilleland.george.exceptions.QueueOverflowError;
+import com.gilleland.george.exceptions.QueueUnderflowError;
+import com.gilleland.george.objects.Choice;
+import com.gilleland.george.objects.CircularQueue;
+import com.gilleland.george.objects.Customer;
+import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.utils.*;
 
 import java.util.ArrayList;

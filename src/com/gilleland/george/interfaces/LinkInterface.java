@@ -1,4 +1,6 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.interfaces;
+
+import com.gilleland.george.objects.Link;
 
 /**
  * Created by Wes Gilleland on 10/25/2015.

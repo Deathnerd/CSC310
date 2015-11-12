@@ -4,8 +4,8 @@ import com.gilleland.george.homework.Assignment3;
 import com.gilleland.george.homework.Assignment4;
 import com.gilleland.george.homework.Assignment5;
 import com.gilleland.george.homework.Assignment6;
-import com.gilleland.george.utils.Choice;
-import com.gilleland.george.utils.HomeworkAssignment;
+import com.gilleland.george.objects.Choice;
+import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
 
 public class Main {

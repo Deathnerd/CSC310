@@ -1,5 +1,8 @@
 package com.gilleland.george.homework;
 
+import com.gilleland.george.exceptions.InvalidPolynomialExpressionException;
+import com.gilleland.george.objects.Choice;
+import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.utils.*;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
 
@@ -10,6 +13,12 @@ import java.util.List;
  * Created by Wes Gilleland on 10/21/2015.
  */
 public class Assignment4 extends HomeworkAssignment {
+    /**
+     * A regular expression to match a polynomial as a term with the following format:
+     * sign(coefficient)x^(exponent)
+     * Ex: +4x^3 or -3x^2 or -312x^0
+     */
+    private final RegularExpression valid_term = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
     QuickPolynomial polynomial = new QuickPolynomial();
     /**
      * The string of input the user gave when entering a polynomial for
@@ -28,12 +37,6 @@ public class Assignment4 extends HomeworkAssignment {
      * A handy-dandy dynamic array to store each part of the
      */
     List<String> terms = new ArrayList<>();
-    /**
-     * A regular expression to match a polynomial as a term with the following format:
-     * sign(coefficient)x^(exponent)
-     * Ex: +4x^3 or -3x^2 or -312x^0
-     */
-    private final RegularExpression valid_term = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
 
     /**
      * The main entry method

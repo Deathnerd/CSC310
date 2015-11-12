@@ -1,7 +1,7 @@
-package com.gilleland.george.homework;
+package com.gilleland.george.objects;
 
-import com.gilleland.george.utils.QueueOverflowError;
-import com.gilleland.george.utils.QueueUnderflowError;
+import com.gilleland.george.exceptions.QueueOverflowError;
+import com.gilleland.george.exceptions.QueueUnderflowError;
 
 /**
  * A circular queue for {@link com.gilleland.george.homework.Assignment6} using

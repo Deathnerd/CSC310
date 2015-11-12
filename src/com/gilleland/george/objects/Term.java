@@ -1,6 +1,6 @@
-package com.gilleland.george.homework;
+package com.gilleland.george.objects;
 
-import com.gilleland.george.utils.Link;
+import com.gilleland.george.objects.Link;
 
 /**
  * Created by Wes Gilleland on 10/25/2015.

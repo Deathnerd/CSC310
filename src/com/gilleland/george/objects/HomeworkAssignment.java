@@ -1,5 +1,6 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.objects;
 
+import com.gilleland.george.interfaces.HomeworkAssignmentInterface;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.InvocationTargetException;

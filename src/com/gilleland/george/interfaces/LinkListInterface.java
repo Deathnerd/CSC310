@@ -1,4 +1,8 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.interfaces;
+
+import com.gilleland.george.exceptions.ImproperInsertionOrderException;
+import com.gilleland.george.objects.Link;
+import com.gilleland.george.exceptions.NodeNotFoundException;
 
 /**
  * Created by Wes Gilleland on 10/25/2015.

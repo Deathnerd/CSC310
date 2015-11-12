@@ -1,8 +1,8 @@
 package com.gilleland.george.utils;
 
-import java.util.Iterator;
+import com.gilleland.george.objects.Choice;
+
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 /**
  * Created by Wes Gilleland on 9/28/2015.

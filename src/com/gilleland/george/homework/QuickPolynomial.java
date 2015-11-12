@@ -1,6 +1,6 @@
 package com.gilleland.george.homework;
 
-import com.gilleland.george.utils.TermNotFoundException;
+import com.gilleland.george.exceptions.TermNotFoundException;
 import com.gilleland.george.utils.Utils;
 
 /**

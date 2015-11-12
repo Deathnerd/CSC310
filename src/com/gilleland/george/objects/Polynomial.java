@@ -1,6 +1,9 @@
-package com.gilleland.george.homework;
+package com.gilleland.george.objects;
 
-import com.gilleland.george.utils.*;
+import com.gilleland.george.exceptions.ImproperInsertionOrderException;
+import com.gilleland.george.exceptions.InvalidPolynomialExpressionException;
+import com.gilleland.george.exceptions.NodeNotFoundException;
+import com.gilleland.george.interfaces.LinkListInterface;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
 
 import java.util.ArrayList;
@@ -10,10 +13,10 @@ import java.util.List;
  * Created by Wes Gilleland on 10/25/2015.
  */
 public class Polynomial implements LinkListInterface {
+    private final RegularExpression matcher = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
     public Term head = null;
     public String expression;
     public List<String> parts = new ArrayList<>();
-    private final RegularExpression matcher = new RegularExpression("(\\+|-)(\\d)+(x(\\^\\d)?)?");
 
     public Polynomial(String expression) throws InvalidPolynomialExpressionException {
         this.setExpression(expression);

@@ -1,4 +1,4 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.objects;
 
 /**
  * Created by Wes Gilleland on 11/4/2015.

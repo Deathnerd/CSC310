@@ -1,5 +1,9 @@
 package com.gilleland.george.homework;
 
+import com.gilleland.george.exceptions.NotSortedException;
+import com.gilleland.george.objects.Choice;
+import com.gilleland.george.objects.HomeworkAssignment;
+import com.gilleland.george.objects.SortAndSearch;
 import com.gilleland.george.utils.*;
 
 import java.io.File;

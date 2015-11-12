@@ -1,4 +1,4 @@
-package com.gilleland.george.homework;
+package com.gilleland.george.objects;
 
 import java.util.Objects;
 

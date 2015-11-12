@@ -1,5 +1,6 @@
 package com.gilleland.george.homework;
 
+import com.gilleland.george.objects.Term;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

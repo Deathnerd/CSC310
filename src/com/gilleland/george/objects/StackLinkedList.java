@@ -1,4 +1,4 @@
-package com.gilleland.george.utils;
+package com.gilleland.george.objects;
 
 import java.util.EmptyStackException;
 
