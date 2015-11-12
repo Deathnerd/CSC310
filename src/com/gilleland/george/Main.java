@@ -8,9 +8,6 @@ import com.gilleland.george.utils.Choice;
 import com.gilleland.george.utils.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Please choose an Assignment so that you may deliver judgement upon my poor soul\n");
@@ -43,13 +40,10 @@ public class Main {
                 assignment5.run();
                 break;
             case "Assignment 6":
-                System.out.println("Circular Queues using arrays!");
+                System.out.println("Circular Queues using arrays! Whoo hoo!");
                 HomeworkAssignment assignment6 = new Assignment6();
                 assignment6.run();
                 break;
-            case "test":
-                int res = 39 / 10;
-                System.out.println(res);
             default:
                 //
         }

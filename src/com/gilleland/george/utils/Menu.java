@@ -1,6 +1,8 @@
 package com.gilleland.george.utils;
 
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Created by Wes Gilleland on 9/28/2015.
@@ -92,7 +94,7 @@ public class Menu {
         return choices[t - 1];
     }
 
-    public int displayYesNo(String prompt) {
+    public boolean displayYesNo(String prompt) {
         System.out.println(prompt);
         System.out.printf(this.choice_format, 1, "Yes");
         System.out.printf(this.choice_format, 2, "No");
@@ -101,6 +103,6 @@ public class Menu {
             this.showIncorrectChoiceMessage();
             this.displayYesNo(prompt);
         }
-        return t;
+        return t == 1;
     }
 }

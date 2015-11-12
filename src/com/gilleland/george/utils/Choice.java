@@ -18,6 +18,19 @@ public class Choice {
         this.prompt = prompt;
     }
 
+    @Override
+    public String toString() {
+        if (this.index == 0) {
+            return this.name;
+        }
+        return String.format("%d. %s", this.index, this.name);
+    }
+
+    /*
+     *=======================
+     * Getters and setters
+     *=======================
+     */
     public String getName() {
         return name;
     }
@@ -40,13 +53,5 @@ public class Choice {
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    @Override
-    public String toString() {
-        if (this.index == 0) {
-            return this.name;
-        }
-        return String.format("%d. %s", this.index, this.name);
     }
 }
