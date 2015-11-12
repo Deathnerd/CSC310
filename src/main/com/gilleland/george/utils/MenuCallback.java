@@ -7,5 +7,5 @@ import com.gilleland.george.objects.Choice;
  */
 @FunctionalInterface
 public interface MenuCallback {
-    Choice execute(Choice c);
+    Choice execute(Choice c, int index);
 }
