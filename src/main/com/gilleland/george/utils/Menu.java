@@ -94,6 +94,28 @@ public class Menu {
         return choices[t - 1];
     }
 
+    public Choice display(MenuCallback callback, Choice... choices) {
+        int i = 1;
+        for (Choice choice : choices) {
+            if (choice.getPrompt() != null) {
+                System.out.printf(this.choice_format, i++, choice.getPrompt());
+            } else {
+                System.out.printf(this.choice_format, i++, choice.getName());
+            }
+        }
+        this.showExitChoice();
+        int t = Menu.in.nextInt();
+        if (t == this.exit_number) {
+            Choice c = new Choice(this.exit_text);
+            c.setIndex(this.exit_number - 1);
+            return c;
+        } else if (t < 0 || t > choices.length) {
+            this.showIncorrectChoiceMessage();
+            return this.display(choices);
+        }
+        return (Choice) callback.execute(choices[t - 1]);
+    }
+
     public boolean displayYesNo(String prompt) {
         System.out.println(prompt);
         System.out.printf(this.choice_format, 1, "Yes");
