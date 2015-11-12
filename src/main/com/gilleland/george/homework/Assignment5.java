@@ -4,7 +4,8 @@ import com.gilleland.george.exceptions.ZeroDivisionException;
 import com.gilleland.george.objects.Choice;
 import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.objects.StackLinkedList;
-import com.gilleland.george.utils.*;
+import com.gilleland.george.utils.Menu;
+import com.gilleland.george.utils.Utils;
 
 import java.util.EmptyStackException;
 
@@ -93,8 +94,8 @@ public class Assignment5 extends HomeworkAssignment {
                  * If the the current character is an operator and there's an operator on the stack,
                  * then we need to pop from the stack until the top element of the stack is not an operator.
                  */
-                else if (Utils.isPlusOrMinus(current_char) && operations_stack.topIsCharacter() &&
-                        Utils.isOneOf(((Character) operations_stack.peek()).charValue(), '+', '-', '*', '/')) {
+                else if (Utils.isPlusOrMinus(current_char) &&
+                        Utils.isOneOf(((Character) operations_stack.peek()), '+', '-', '*', '/')) {
                     this.handlePlusAndMinus(operations_stack);
                     /*
                      * Operator is handled, push the current character to the stack
@@ -107,9 +108,7 @@ public class Assignment5 extends HomeworkAssignment {
                  * be treated differently. Keep popping from the stack until the top element is another
                  * multiplication or division operator.
                  */
-                else if (Utils.isMultOrDiv(current_char) &&
-                        operations_stack.topIsCharacter() &&
-                        Utils.isMultOrDiv(((Character) operations_stack.peek()).charValue())) {
+                else if (Utils.isMultOrDiv(current_char) && Utils.isMultOrDiv(((Character) operations_stack.peek()))) {
                     this.handleMultAndDiv(operations_stack);
                     /*
                      * Operator is handled, push the current character to the stack
@@ -136,7 +135,7 @@ public class Assignment5 extends HomeworkAssignment {
     }
 
     /**
-     * Handles the subexpressions (expressions inside parenthesis) while converting
+     * Handles the sub-expressions (expressions inside parenthesis) while converting
      * from infix to postfix
      *
      * @param operations_stack The current working stack
@@ -149,7 +148,7 @@ public class Assignment5 extends HomeworkAssignment {
          * the opening parenthesis, pop it and break the loop. If the last pop would
          * result in an empty operations_stack, then break the loop.
          */
-        while (!operations_stack.isEmpty() && operations_stack.topIsCharacter()) {
+        while (!operations_stack.isEmpty()) {
             char current_top = (Character) operations_stack.peek();
             if (Utils.isOneOf(current_top, '(')) {
                 operations_stack.pop();
@@ -200,7 +199,7 @@ public class Assignment5 extends HomeworkAssignment {
          * If it isn't, then break out of the function. Otherwise, pop the character
          * off of the stack and append it to the postfix string
          */
-        while (!operations_stack.isEmpty() && operations_stack.topIsCharacter()) {
+        while (!operations_stack.isEmpty()) {
             char current_top = (Character) operations_stack.peek();
             if (!Utils.isMultOrDiv(current_top)) {
                 break;
@@ -229,7 +228,7 @@ public class Assignment5 extends HomeworkAssignment {
          * If it isn't, then break out of the function. Otherwise, pop the character
          * off of the stack and append it to the postfix string
          */
-        while (!operations_stack.isEmpty() && operations_stack.topIsCharacter()) {
+        while (!operations_stack.isEmpty()) {
             char current_top = (Character) operations_stack.peek();
             if (!Utils.isOneOf(current_top, '+', '-', '*', '/')) {
                 return;

@@ -60,7 +60,7 @@ public class StackLinkedList {
      * <p>Push new data to the top of the stack.</p>
      * <p>Increases the size by 1</p>
      *
-     * @param data Number or Character data (or their primatives). Yay for Java's
+     * @param data Number or Character data (or their primitives). Yay for Java's
      *             autoboxing!
      */
     public void push(Object data) {
@@ -111,14 +111,5 @@ public class StackLinkedList {
      */
     public int getSize() {
         return this.size;
-    }
-
-    /**
-     * Really shouldn't need this, but I still haven't hit my groove with generics yet
-     *
-     * @return Is the top stack element an instance of Character?
-     */
-    public boolean topIsCharacter() {
-        return this.peek() instanceof Character;
     }
 }
