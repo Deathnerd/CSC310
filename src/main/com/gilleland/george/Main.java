@@ -1,9 +1,6 @@
 package com.gilleland.george;
 
-import com.gilleland.george.homework.Assignment3;
-import com.gilleland.george.homework.Assignment4;
-import com.gilleland.george.homework.Assignment5;
-import com.gilleland.george.homework.Assignment6;
+import com.gilleland.george.homework.*;
 import com.gilleland.george.objects.Choice;
 import com.gilleland.george.objects.HomeworkAssignment;
 import com.gilleland.george.utils.Menu;
@@ -22,7 +19,8 @@ public class Main {
                 new Choice("Assignment 3", "Assignment 3: Sorting and Searching"),
                 new Choice("Assignment 4", "Assignment 4: Polynomial (Linked List)"),
                 new Choice("Assignment 5", "Assignment 5: Infix to Postfix Converter (Stacks)"),
-                new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)")
+                new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)"),
+                new Choice("Assignment 7", "Assignment 7: Binary Search Trees using Breadth-First Traversal")
         );
 
         switch (choice.getName()) {
@@ -45,6 +43,11 @@ public class Main {
                 System.out.println("Circular Queues using arrays! Whoo hoo!");
                 HomeworkAssignment assignment6 = new Assignment6();
                 assignment6.run();
+                break;
+            case "Assignment 7":
+                System.out.println("Alright! Let's search for some games!");
+                HomeworkAssignment assignment7 = new Assignment7();
+                assignment7.run();
                 break;
             default:
                 //
