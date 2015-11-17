@@ -19,10 +19,16 @@ public class Assignment7 extends HomeworkAssignment {
      */
     private Menu menu = new Menu();
 
+    /**
+     * The scanner object to read in user input. Couldn't use
+     * Menu's scanner object because it was behaving badly
+     * with leftover input values for some reason. Much easier
+     * to just make a new object
+     */
     private Scanner in = new Scanner(System.in);
 
     /**
-     * The current tree object
+     * The current tree object conataining the games
      */
     private BinarySearchTree<Game> tree = new BinarySearchTree<>();
 
@@ -46,6 +52,12 @@ public class Assignment7 extends HomeworkAssignment {
         }
     }
 
+    /**
+     * Asks the user to enter the name of a game and inserts it into the
+     * current tree.
+     *
+     * @see BinarySearchTree#insert(BinarySearchTreeNode[])
+     */
     public void insert() {
         System.out.print("Enter the name of a game: ");
         String game_name = this.in.nextLine();
@@ -54,6 +66,15 @@ public class Assignment7 extends HomeworkAssignment {
         System.out.println();
     }
 
+    /**
+     * First checks if the tree is empty. If it is, alerts the user and exits.
+     * If not, then asks the user to enter the name or prefix of a game to search
+     * for. Then searches the tree, displaying either all matches for that
+     * search term or a message alerting the user that no game was found for that
+     * term.
+     *
+     * @see BinarySearchTree#searchAll(Comparable)
+     */
     public void search() {
         if (this.tree.isEmpty()) {
             System.out.println("There are currently no games in the system!");
@@ -64,6 +85,7 @@ public class Assignment7 extends HomeworkAssignment {
         String search = this.in.nextLine();
 
         try {
+            // I love lambdas and streams in Java 8!
             this.tree.searchAll(new Game(search)).stream().forEach(g -> System.out.println(g.toString()));
         } catch (NodeNotFoundException e) {
             System.out.println("\nNo game found matching that search term!");
@@ -72,8 +94,13 @@ public class Assignment7 extends HomeworkAssignment {
         }
     }
 
+    /**
+     * Displays the contents of the tree using a Breadth-First strategy.
+     *
+     * @see BinarySearchTree#display()
+     */
     public void list_games() {
-        tree.display();
+        this.tree.display();
         System.out.println();
     }
 }
