@@ -7,23 +7,43 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Created by Wes Gilleland on 11/4/2015.
+ * An attempt at a generic Binary Search Tree
  */
 public class BinarySearchTree<K extends Comparable<K>> {
+    /**
+     * The root of the whole tree
+     */
     protected BinarySearchTreeNode<K> root;
 
+    /**
+     * Initialize an empty tree
+     */
     public BinarySearchTree() {
         this.root = null;
     }
 
+    /**
+     * Initialize a tree with an initial root of {@link BinarySearchTreeNode}
+     *
+     * @param initial_root The initial node object for the root
+     */
     public BinarySearchTree(BinarySearchTreeNode<K> initial_root) {
         this.root = initial_root;
     }
 
+    /**
+     * Initialize a tree with the root set with data
+     * @param data The data to set for the root of the new tree
+     */
     public BinarySearchTree(K data) {
         this.root = new BinarySearchTreeNode<>(data);
     }
 
+    /**
+     * Takes in any number of {@link BinarySearchTreeNode} objects as arguments
+     * and inserts them into the tree one by one.
+     * @param data The data to insert
+     */
     @SafeVarargs
     public final void insert(BinarySearchTreeNode<K>... data) {
         for (BinarySearchTreeNode<K> d : data) {
@@ -41,10 +61,22 @@ public class BinarySearchTree<K extends Comparable<K>> {
      * @return The resulting tree or node
      */
     public BinarySearchTreeNode<K> insert(BinarySearchTreeNode<K> root, BinarySearchTreeNode<K> node) {
+        /*
+         * If the root is null, then the tree is empty and the node we're inserting
+         * should be the root node. Set the root to the node and return the new root.
+         */
         if (root == null) {
             root = node;
             return root;
         }
+        /*
+         * Otherwise do a comparison on their string values (ignoring case).
+         * If the comparison is 0, then they are equal and the internal reference count
+         * for the root should be increased by 1. Otherwise if the comparison is less
+         * than 0, then the node should be inserted as a left-hand child of the root.
+         * Finally if the comparison is greater than 0 the node should be inserted as a
+         * right-hand child of the root.
+         */
         int root_comparision = node.toString().compareToIgnoreCase(root.toString());
         if (root_comparision == 0) {
             root.count += 1;
@@ -59,12 +91,14 @@ public class BinarySearchTree<K extends Comparable<K>> {
     /**
      * Searches through the current tree for a given key. Will return a match if
      * a node exists that has a value that starts with key or is equal to key.
-     * All comparisons are in lowercase.
+     * All comparisons are in lowercase. Works like {@link #searchAll(Comparable)}
+     * except it returns the first match instead of all matches.
      *
      * @param key The key containing the value to search for
      * @return The node if it finds it
      * @throws EmptyTreeException    If the current tree is empty
      * @throws NodeNotFoundException If the node isn't found
+     * @see #searchAll(Comparable)
      */
     public BinarySearchTreeNode<K> searchFirst(K key) throws EmptyTreeException, NodeNotFoundException {
         if (this.root == null) {
@@ -103,10 +137,26 @@ public class BinarySearchTree<K extends Comparable<K>> {
      * @throws NodeNotFoundException If no nodes are found to match the key
      */
     public ArrayList<BinarySearchTreeNode<K>> searchAll(K key) throws EmptyTreeException, NodeNotFoundException {
+        /*
+         * Null check for the root. If this is true, then
+         * the programmer needs to know that they're operating
+         * on an empty data set.
+         */
         if (this.root == null) {
             throw new EmptyTreeException();
         }
 
+        /*
+         * Create a new LinkedList Queue (using Java's implementation
+         * because I'm lazy and don't really trust my code right now) to
+         * add the children of the current level's nodes. Starts from the
+         * left of the current level, goes to the right. At each node, it adds
+         * (in this order) the left child (if it exists) and the right child
+         * (if it exists) to the queue. If the current node contains the key
+         * we have or starts with the key, then it is added to the result set.
+         * Otherwise it is skipped, its children are added to the queue,
+         * and the cycle continues until the queue is empty.
+         */
         LinkedList<BinarySearchTreeNode<K>> node_queue = new LinkedList<>();
         BinarySearchTreeNode<K> current;
         node_queue.add(this.root);
@@ -134,7 +184,12 @@ public class BinarySearchTree<K extends Comparable<K>> {
     }
 
     /**
-     * Displays the contents of the current tree in a Breadth-First Search pattern
+     * Displays the contents of the current tree in a Breadth-First Search pattern.
+     * If the tree is empty (root is null), then a message will print out saying so
+     * and the method will return. Otherwise, internally, a Queue is made
+     * of all children of the current level, where they are then iterated over
+     * (and their children are added to the queue and so on), printing out the
+     * data they hold.
      */
     public void display() {
         if (this.root == null) {
@@ -174,9 +229,9 @@ public class BinarySearchTree<K extends Comparable<K>> {
     /**
      * Internal method to remove from a subtree
      *
-     * @param key
-     * @param root
-     * @return
+     * @param key  The key to identify the node to remove
+     * @param root The root of the subtree to do the removing from
+     * @return The new root of the tree
      */
     public BinarySearchTreeNode<K> remove(K key, BinarySearchTreeNode<K> root) {
         if (root == null) {
@@ -215,6 +270,11 @@ public class BinarySearchTree<K extends Comparable<K>> {
         return this.findMin(root.left);
     }
 
+    /**
+     * Checks if the root is null, which means the tree is empty
+     *
+     * @return Is the root null?
+     */
     public boolean isEmpty() {
         return this.root == null;
     }
