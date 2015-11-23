@@ -28,7 +28,7 @@ public class Assignment7 extends HomeworkAssignment {
     private Scanner in = new Scanner(System.in);
 
     /**
-     * The current tree object conataining the games
+     * The current tree object containing the games
      */
     private BinarySearchTree<Game> tree = new BinarySearchTree<>();
 
