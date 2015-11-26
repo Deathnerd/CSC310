@@ -20,7 +20,8 @@ public class Main {
                 new Choice("Assignment 4", "Assignment 4: Polynomial (Linked List)"),
                 new Choice("Assignment 5", "Assignment 5: Infix to Postfix Converter (Stacks)"),
                 new Choice("Assignment 6", "Assignment 6: Circular Queues (Arrays)"),
-                new Choice("Assignment 7", "Assignment 7: Binary Search Trees using Breadth-First Traversal")
+                new Choice("Assignment 7", "Assignment 7: Binary Search Trees using Breadth-First Traversal"),
+                new Choice("Assignment 8", "Assignment 8: Heaps using arrays and Breadth-First Traversal")
         );
 
         switch (choice.getName()) {
@@ -49,6 +50,10 @@ public class Main {
                 HomeworkAssignment assignment7 = new Assignment7();
                 assignment7.run();
                 break;
+            case "Assignment 8":
+                System.out.println("This'll be heaps of fun!");
+                HomeworkAssignment assignment8 = new Assignment8();
+                assignment8.run();
             default:
                 //
         }
